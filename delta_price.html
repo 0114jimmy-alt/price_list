@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>三角洲行動 - 戰術支援價目表</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial Black', 'Segoe UI', sans-serif; }
+        body { background: #0a0e14; color: #e0e0e0; padding: 20px; }
+        
+        /* 標籤切換 */
+        .tabs { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center; }
+        .tab { padding: 12px 25px; background: #2a3240; border: 1px solid #333945; color: #8a9ba8; cursor: pointer; border-radius: 5px; }
+        .tab:hover { background: #333945; color: #ffcc00; }
+        .tab.active { background: #ff6600; color: white; }
+        
+        /* 頁面內容 */
+        .page { display: none; background: #1a1f29; border: 2px solid #333945; border-radius: 10px; padding: 30px; max-width: 900px; margin: 0 auto; }
+        .page.active { display: block; }
+        
+        /* 標題 */
+        .header { text-align: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 2px solid #ff6600; }
+        .title { color: #ff6600; font-size: 2.5rem; font-weight: bold; margin-bottom: 10px; }
+        .subtitle { color: #8a9ba8; font-size: 1rem; }
+        
+        /* 價格項目 */
+        .price-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px dashed #2a3240; }
+        .price { color: #00ff9d; font-size: 1.5rem; font-weight: bold; background: rgba(0,80,50,0.3); padding: 5px 15px; border-radius: 5px; border: 2px solid #00ff9d; }
+        .guarantee { color: #66b3ff; font-size: 1.3rem; font-weight: bold; }
+        
+        /* 分欄 */
+        .columns { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
+        .column { background: rgba(22,27,37,0.8); padding: 20px; border-radius: 5px; border: 1px solid #2a3240; }
+        
+        /* 特殊樣式 */
+        .note { margin-top: 20px; padding: 15px; background: rgba(255,102,0,0.1); border-left: 4px solid #ff6600; color: #ffaa66; }
+        .warning { background: rgba(255,50,50,0.1); border-left: 4px solid #ff3333; color: #ff6666; }
+        
+        /* 響應式 */
+        @media (max-width: 768px) {
+            .columns { grid-template-columns: 1fr; }
+            .title { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 標籤導航 -->
+    <div class="tabs">
+        <div class="tab active" onclick="showPage('page1')">基礎/體驗單</div>
+        <div class="tab" onclick="showPage('page2')">航天賭約單</div>
+        <div class="tab" onclick="showPage('page3')">娛樂玩法</div>
+        <div class="tab" onclick="showPage('page4')">規則條款</div>
+    </div>
+    
+    <!-- 頁面1：基礎/體驗單 -->
+    <div class="page active" id="page1">
+        <div class="header">
+            <div class="title">DELTA FORCE 戰術支援</div>
+            <div class="subtitle">基礎方案與體驗方案</div>
+        </div>
+        
+        <div class="columns">
+            <!-- 基礎單 -->
+            <div class="column">
+                <h3 style="color:#ffcc00; margin-bottom:20px;">基礎單</h3>
+                <div class="price-item"><span class="price">500</span><span class="guarantee">保底 600w</span></div>
+                <div class="price-item"><span class="price">800</span><span class="guarantee">保底 900w</span></div>
+                <div class="price-item"><span class="price">1000</span><span class="guarantee">保底 1300w</span></div>
+                <div class="price-item"><span class="price">2000</span><span class="guarantee">保底 2300w</span></div>
+                <div class="price-item"><span class="price">8000</span><span class="guarantee">保底 8600w</span></div>
+                <div class="price-item"><span class="price">10000</span><span class="guarantee">保底 11888w</span></div>
+                <div class="note">※ 炸單補償 +100w (上限1000w)</div>
+            </div>
+            
+            <!-- 體驗單 -->
+            <div class="column">
+                <h3 style="color:#ffcc00; margin-bottom:20px;">體驗單</h3>
+                <div class="price-item"><span class="price">200</span><span class="guarantee">保底 400w</span></div>
+                <div class="price-item"><span class="price">600</span><span class="guarantee">保底 750w</span></div>
+                <div class="price-item"><span class="price">1500</span><span class="guarantee">保底 1700w</span></div>
+                <div class="note" style="background:rgba(0,150,255,0.1); border-color:#0096ff; color:#66b3ff;">
+                    <strong>其他服務：</strong><br>
+                    • 航天絕密賭約單<br>
+                    • 娛樂玩法<br>
+                    • 詳細規則請看後續頁面
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 頁面2：航天賭約單 -->
+    <div class="page" id="page2">
+        <div class="header">
+            <div class="title">航天絕密賭約單</div>
+            <div class="subtitle">高風險高回報 | 限單局帶出金額</div>
+        </div>
+        
+        <div class="column">
+            <h3 style="color:#ff66ff; margin-bottom:20px;">單局挑戰賭約</h3>
+            <div class="price-item"><span class="price" style="color:#ff66ff; border-color:#ff66ff;">1000</span><span class="guarantee">單局沒有 588w 不結單</span></div>
+            <div class="price-item"><span class="price" style="color:#ff66ff; border-color:#ff66ff;">1500</span><span class="guarantee">單局沒有 688w 不結單</span></div>
+            <div class="price-item"><span class="price" style="color:#ff66ff; border-color:#ff66ff;">2000</span><span class="guarantee">單局沒有 799w 不結單</span></div>
+            <div class="price-item"><span class="price" style="color:#ff66ff; border-color:#ff66ff;">2500</span><span class="guarantee">單局沒有 888w 不結單</span></div>
+            <div class="price-item"><span class="price" style="color:#ff66ff; border-color:#ff66ff;">3500</span><span class="guarantee">單局沒有 1288w 不結單</span></div>
+            <div class="price-item"><span class="price" style="color:#ff66ff; border-color:#ff66ff;">5500</span><span class="guarantee">單局沒有 1488w 不結單</span></div>
+        </div>
+        
+        <div class="columns" style="margin-top:30px;">
+            <div class="column">
+                <h3 style="color:#ff66ff; margin-bottom:20px;">稀有目標保底</h3>
+                <div class="price-item"><span class="price" style="color:#ff66ff; border-color:#ff66ff;">588</span><span class="guarantee">沒出鍋保 688w</span></div>
+                <div class="price-item"><span class="price" style="color:#ff66ff; border-color:#ff66ff;">1088</span><span class="guarantee">必出鍋</span></div>
+                <div class="price-item"><span class="price" style="color:#ff66ff; border-color:#ff66ff;">1888</span><span class="guarantee">沒出油保 2000w</span></div>
+                <div class="price-item"><span class="price" style="color:#ff66ff; border-color:#ff66ff;">4888</span><span class="guarantee">必出油</span></div>
+            </div>
+            
+            <div class="column">
+                <h3 style="color:#ff66ff; margin-bottom:20px; margin-top:40px;">&nbsp;</h3>
+                <div class="price-item"><span class="price" style="color:#ff66ff; border-color:#ff66ff;">5200</span><span class="guarantee">沒出心保 6888w</span></div>
+                <div class="price-item"><span class="price" style="color:#ff66ff; border-color:#ff66ff;">40000</span><span class="guarantee">必出心</span></div>
+                <div class="price-item"><span class="price" style="color:#ff66ff; border-color:#ff66ff;">90000</span><span class="guarantee">沒出心保 10888w</span></div>
+                <div class="price-item"><span class="price" style="color:#ff66ff; border-color:#ff66ff;">130000</span><span class="guarantee">必出淚保</span></div>
+            </div>
+        </div>
+        
+        <div class="warning" style="margin-top:30px;">
+            ⚠️ 賭約規則：下訂後不可反悔或故意卡保底，賭約內容不可更動，得失心重者勿下單。
+        </div>
+    </div>
+    
+    <!-- 頁面3：娛樂玩法 -->
+    <div class="page" id="page3">
+        <div class="header">
+            <div class="title">娛樂玩法</div>
+            <div class="subtitle">趣味挑戰 | 客製化服務</div>
+        </div>
+        
+        <div class="columns">
+            <div class="column">
+                <h3 style="color:#00ffff; margin-bottom:20px;">牛角單</h3>
+                <div class="price-item"><span class="price" style="color:#00ffff; border-color:#00ffff;">1088</span><span class="guarantee">保底 800w</span></div>
+                <div class="note" style="background:rgba(0,200,200,0.1); border-color:#00ffff; color:#00ffff;">
+                    ※ 一個牛角額外加 50w (無上限)<br><br>
+                    <small>牛角是遊戲中的特殊高價值物品，可重複獲取。</small>
+                </div>
+            </div>
+            
+            <div class="column">
+                <h3 style="color:#00ffff; margin-bottom:20px;">自力根生</h3>
+                <div class="price-item"><span class="price" style="color:#00ffff; border-color:#00ffff;">1000</span><span class="guarantee">初始保底 500w</span></div>
+                <div class="note" style="background:rgba(0,200,200,0.1); border-color:#00ffff; color:#00ffff;">
+                    ※ 打手幫忙起裝，裝備會帶出去<br>
+                    ※ 一個人加 100w，下局打手會幫忙打到金額<br><br>
+                    <small>適合想體驗完整成長過程的老闆。</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 頁面4：規則條款 -->
+    <div class="page" id="page4">
+        <div class="header">
+            <div class="title">服務規則條款</div>
+            <div class="subtitle">請仔細閱讀並遵守以下規則</div>
+        </div>
+        
+        <div class="column">
+            <h3 style="color:#ffcc00; margin-bottom:20px;">基本規則</h3>
+            <ul style="list-style:none; padding-left:20px; color:#e0e0e0; line-height:1.8;">
+                <li style="margin-bottom:15px; padding-left:15px; border-left:3px solid #ff6600;">
+                    <strong>下單確認：</strong> 下單前請確認需求及價格，下單後10分鐘內可取消
+                </li>
+                <li style="margin-bottom:15px; padding-left:15px; border-left:3px solid #ff6600;">
+                    <strong>錄影存證：</strong> 護航期間打手全程錄影，建議老闆也錄屏
+                </li>
+                <li style="margin-bottom:15px; padding-left:

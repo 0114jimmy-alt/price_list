@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>三角洲行動 - 戰術支援價目表</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial Black', 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background-color: #0a0e14;
+            color: #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(255, 102, 0, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 85% 30%, rgba(0, 150, 255, 0.05) 0%, transparent 20%);
+            min-height: 100vh;
+        }
+
+        /* 導航標籤 */
+        .tab-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 10px;
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .tab {
+            padding: 12px 25px;
+            background: linear-gradient(180deg, #2a3240 0%, #1a1f29 100%);
+            border: 1px solid #333945;
+            border-radius: 5px 5px 0 0;
+            color: #8a9ba8;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+            bottom: -1px;
+            z-index: 1;
+        }
+
+        .tab:hover {
+            background: linear-gradient(180deg, #333945 0%, #222831 100%);
+            color: #ffcc00;
+        }
+
+        .tab.active {
+            background: linear-gradient(180deg, #1a1f29 0%, #0a0e14 100%);
+            border-bottom: 1px solid #0a0e14;
+            color: #ff6600;
+            box-shadow: 0 -2px 10px rgba(255, 102, 0, 0.2);
+            z-index: 10;
+        }
+
+        /* 價格表通用樣式 */
+        .price-table {
+            width: 100%;
+            max-width: 900px;
+            background: 
+                linear-gradient(135deg, #1a1f29 0%, #0f131a 100%),
+                url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="%231a1f29"/><path d="M0,50 L100,50 M50,0 L50,100" stroke="%23222a36" stroke-width="1"/><circle cx="20" cy="20" r="2" fill="%23222a36"/><circle cx="80" cy="30" r="3" fill="%23222a36"/><circle cx="40" cy="70" r="4" fill="%23222a36"/></svg>');
+            background-blend-mode: overlay;
+            border: 2px solid #333945;
+            border-radius: 8px;
+            box-shadow: 
+                0 0 30px rgba(255, 102, 0, 0.2),
+                inset 0 0 20px rgba(0, 0, 0, 0.5);
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+            display: none;
+        }
+
+        .price-table.active {
+            display: block;
+        }
+
+        /* 頁面通用元素 */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #ff6600;
+            position: relative;
+        }
+
+        .delta-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .delta-badge span {
+            background: linear-gradient(90deg, #ff6600, #ffaa00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-size: 2.8rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255, 102, 0, 0.3);
+        }
+
+        .subtitle {
+            color: #8a9ba8;
+            font-size: 1rem;
+            letter-spacing: 3px;
+            margin-top: -5px;
+        }
+
+        .service-column {
+            border: 1px solid #2a3240;
+            border-radius: 5px;
+            padding: 20px;
+            background-color: rgba(22, 27, 37, 0.7);
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .service-column::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #ff6600, transparent);
+        }
+
+        .column-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            color: #ffcc00;
+            font-size: 1.5rem;
+        }
+
+        .column-title .icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+            filter: drop-shadow(0 0 3px #ffcc00);
+        }
+
+        .service-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px dashed #2a3240;
+        }
+
+        .service-item:last-child {
+            border-bottom: none;
+        }
+
+        .price {
+            color: #00ff9d;
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(0, 255, 157, 0.5);
+            background-color: rgba(0, 50, 30, 0.3);
+            padding: 3px 10px;
+            border-radius: 3px;
+            border: 1px solid #00ff9d;
+        }
+
+        .guarantee {
+            color: #66b3ff;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-align: right;
+            max-width: 60%;
+        }
+
+        .note {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: rgba(255, 102, 0, 0.1);
+            border-left: 3px solid #ff6600;
+            font-size: 0.85rem;
+            color: #ffaa66;
+        }
+
+        .warning-note {
+            background-color: rgba(255, 50, 50, 0.1);
+            border-left: 3px solid #ff3333;
+            color: #ff6666;
+        }
+
+        .info-note {
+            background-color: rgba(0, 150, 255, 0.1);
+            border-left: 3px solid #0096ff;
+            color: #66b3ff;
+        }
+
+        .special-price {
+            color: #ff66ff;
+            font-size: 1.4rem;
+            font-weight: bold;
+            text-shadow: 0 0 8px rgba(255, 102, 255, 0.5);
+            background-color: rgba(80, 0, 80, 0.3);
+            padding: 5px 15px;
+            border-radius: 3px;
+            border: 1px solid #ff66ff;
+        }
+
+        .grid-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background-image: 
+                linear-gradient(to right, rgba(255,102,0,0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,102,0,0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .corner-deco {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ff6600;
+        }
+
+        .corner-tl { top: 10px; left: 10px; border-right: none; border-bottom: none; }
+        .corner-tr { top: 10px; right: 10px; border-left: none; border-bottom: none; }
+        .corner-bl { bottom: 10px; left: 10px; border-right: none; border-top: none; }
+        .corner-br { bottom: 10px; right: 10px; border-left: none; border-top: none; }
+
+        .footer-note {
+            margin-top: 25px;
+            text-align: center;
+            color: #8a9ba8;
+            font-size: 0.8rem;
+            padding-top: 15px;
+            border-top: 1px solid #2a3240;
+        }
+
+        /* 特殊樣式 */
+        .service-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .betting-column {
+            background: linear-gradient(135deg, rgba(40, 0, 40, 0.5), rgba(22, 27, 37, 0.8));
+            border: 1px solid #660066;
+        }
+
+        .betting-column::before {
+            background: linear-gradient(90deg, #ff00ff, transparent);
+        }
+
+        .entertainment-column {
+            background: linear-gradient(135deg, rgba(0, 40, 40, 0.5), rgba(22, 27, 37, 0.8));
+            border: 1px solid #006666;
+        }
+
+        .entertainment-column::before {
+            background: linear-gradient(90deg, #00ffff, transparent);
+        }
+
+        .rules-list {
+            list-style-type: none;
+            padding-left: 10px;
+        }
+
+        .rules-list li {
+            padding: 8px 0;
+            border-bottom: 1px dashed #2a3240;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .rules-list li:before {
+            content: '▶';
+            color: #ff6600;
+            position: absolute;
+            left: 0;
+            font-size: 0.8rem;
+        }
+
+        /* 響應式調整 */
+        @media (max-width: 768px) {
+            .service-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .delta-badge span {
+                font-size: 2rem;
+            }
+            
+            .tab {
+                padding: 10px 15px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 導航標籤 -->
+    <div class="tab-container">
+        <div class="tab active" data-tab="page1">基礎/體驗單</div>
+        <div class="tab" data-tab="page2">航天賭約單</div>
+        <div class="tab" data-tab="page3">娛樂玩法</div>
+        <div class="tab" data-tab="page4">規則條款</div>
+    </div>
+
+    <!-- 頁面1: 基礎單 & 體驗單 -->
+    <div class="price-table active" id="page1">
+        <div class="grid-overlay"></div>
+        <div class="corner-deco corner-tl"></div>
+        <div class="corner-deco corner-tr"></div>
+        <div class="corner-deco corner-bl"></div>
+        <div class="corner-deco corner-br"></div>
+
+        <div class="header">
+            <div class="delta-badge">
+                <span>DELTA FORCE</span>
